@@ -1,8 +1,6 @@
 
-/bazel-bin
-/bazel-out
-/bazel-protocon
-/bazel-testlogs
+/bazel-*
+/MODULE.bazel.lock
 
 /bin/
 /bld/

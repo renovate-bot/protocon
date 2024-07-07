@@ -9,6 +9,7 @@ jobs:
       matrix:
         platform: [ubuntu-latest, macos-latest]
 
+    name: ${{ matrix.platform }}
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -20,19 +21,27 @@ jobs:
         key: ${{ runner.os }}-bazel
 
     - name: Setup bazel
-      uses: jwlawson/actions-setup-bazel@v1
+      uses: jwlawson/actions-setup-bazel@v2
       with:
-        bazel-version: '6'
+        bazel-version: latest
 
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Build
-      run: bazel build //...
+      run: >
+        bazel build
+        --config=standard_test_platform
+        //...
 
     - name: Test
       # --enable_runfiles is for Windows tests to access data deps.
-      run: bazel test --enable_runfiles --test_timeout 300 //...
+      run: >
+        bazel test
+        --config=standard_test_platform
+        --enable_runfiles
+        --test_timeout 300
+        //...
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
@@ -50,9 +59,9 @@ jobs:
 
     steps:
     - name: Setup bazel
-      uses: jwlawson/actions-setup-bazel@v1
+      uses: jwlawson/actions-setup-bazel@v2
       with:
-        bazel-version: '6'
+        bazel-version: latest
 
     - name: Checkout
       uses: actions/checkout@v4
@@ -65,6 +74,10 @@ jobs:
         --combined_report=lcov
         --
         //...
+
+    - name: Strip Branch Coverage
+      # Bazel 7 generates branch coverage, but we prefer line coverage reports.
+      run: sed -i '/^BR/d' bazel-out/_coverage/_coverage_report.dat
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
