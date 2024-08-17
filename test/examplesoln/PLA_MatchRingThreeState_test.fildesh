@@ -1,7 +1,7 @@
 
-(: expect_file Filename .self.opt.expect_file)
-(: MatchRingThreeState_file Filename .self.opt.input_file)
+(: expect_file Filepath .self.opt.expect_file)
+(: MatchRingThreeState_file Filepath .self.opt.input_file)
 
 |< protocon -nop -x $(XOF MatchRingThreeState_file) -o-pla -
-|- cmp $(XOF expect_file)
+|- cmptxt $(XOF expect_file)
 |> stdout

@@ -1,6 +1,5 @@
-#!/usr/bin/env fildesh
 
-(: OrientRing_file Filename .self.opt.input_file)
+(: OrientRing_file Filepath .self.opt.input_file)
 
 protocon -verify -synchronous -x $(XOF OrientRing_file) -param N 4
 

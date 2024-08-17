@@ -1,13 +1,14 @@
 
-(: espresso Filename .self.opt.espresso)
-(: MatchRingThreeState_file Filename .self.opt.input_file)
+(: espresso Filepath .self.opt.espresso)
+(: MatchRingThreeState_file Filepath .self.opt.input_file)
 
 protocon -nop -x $(XOF MatchRingThreeState_file) -o $(OF not_expect) \
   -forget-argline
 
 |< protocon -nop -x $(XOF MatchRingThreeState_file) -o - -espresso $(XOF espresso) \
   -forget-argline
-|> cmp $(XF not_expect) $(O? status)
+|- cmptxt $(XF not_expect) $(O? status)
+|> stdout
 expect_failure -x? $(XF status)
 
 $(barrier)
@@ -17,5 +18,5 @@ protocon -nop -x $(XOF MatchRingThreeState_file) -o $(OF expect) \
 
 |< protocon -nop -x $(XOF MatchRingThreeState_file) -o - -espresso $(XOF espresso)
 |- protocon -nop -x - -o - -forget-argline
-|- cmp $(XF expect)
+|- cmptxt $(XF expect)
 |> stdout
