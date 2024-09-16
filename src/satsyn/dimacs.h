@@ -34,10 +34,8 @@ xget_dimacs_result (FildeshX* in, bool* sat, BitTable evs)
     DBog0( "No output!" );
     return;
   }
-  if (0 == fildesh_compare_bytestring(
-          bytestring_of_FildeshX(&slice), fildesh_bytestrlit("UNSAT")) ||
-      0 == fildesh_compare_bytestring(
-          bytestring_of_FildeshX(&slice), fildesh_bytestrlit("unsat"))) {
+  if (peek_bytestring_FildeshX(&slice, fildesh_bytestrlit("UNSAT")) ||
+      peek_bytestring_FildeshX(&slice, fildesh_bytestrlit("unsat"))) {
     *sat = false;
   }
   else {

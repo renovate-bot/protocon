@@ -4,16 +4,11 @@ module(
     compatibility_level = 1,
 )
 
-bazel_dep(name = "fildesh", version = "0.1.9")
+bazel_dep(name = "fildesh", version = "0.2.0")
 bazel_dep(name = "mdd-glu", version = "2.4.0")
-bazel_dep(name = "rules_license", version = "0.0.8")
+bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "rules_peg", version = "0.1.18")
 
-git_override(
-    module_name = "fildesh",
-    remote = "https://github.com/fildesh/fildesh.git",
-    commit="bee04658920c47248b1e2ead254e2908197df173",
-)
 git_override(
     module_name = "mdd-glu",
     remote = "https://github.com/ProtocolConvergence/mdd-glu.git",
