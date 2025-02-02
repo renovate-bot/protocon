@@ -55,9 +55,7 @@ public:
   }
 
   void ensize(size_t capac) {
-    if (capac > this->size()) {
-      this->resize(capac);
-    }
+    this->resize(capac);
   }
   void wipe(const T& x) {this->assign(this->size(), x);}
 

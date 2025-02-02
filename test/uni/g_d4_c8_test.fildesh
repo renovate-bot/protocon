@@ -1,0 +1,18 @@
+# An initial frontier to build from.
+# It has been chosen to speed up the test.
+(: frontier Str """\
+55f4____
+576P____
+57XH____
+""")
+# The complete output expected from:
+#   generate -domsz 4 -cutoff 8
+(: expect Str """\
+55f4XH5X
+576Pf7XH
+57XHa__A
+""")
+
+|< generate -domsz 4 -cutoff 8 -x-init $(XF frontier)
+|- cmptxt - $(XF expect)
+|> stdout
