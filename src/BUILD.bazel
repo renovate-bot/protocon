@@ -1,4 +1,5 @@
 load("@fildesh//tool/bazel:fildesh_run.bzl", "fildesh_run")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@rules_peg//peg:defs.bzl", "cc_parsing_expression_grammar")
 
 package(
@@ -19,7 +20,6 @@ cc_parsing_expression_grammar(
     out_cc = "prot-xfile.leg.cc",
 )
 
-
 cc_binary(
     name = "biring",
     srcs = [
@@ -32,17 +32,16 @@ cc_binary(
     ],
 )
 
-
 cc_library(
     name = "pfmla_glu_lib",
     srcs = [
+        "pfmla.h",
         "pfmla-glu.c",
         "pfmla-glu.h",
-        "pfmla.h",
     ],
     deps = [
-        "@mdd-glu//:mdd_glu_cudd_lib",
         "//src/cx:cx_lib",
+        "@mdd-glu//:mdd_glu_cudd_lib",
     ],
 )
 
@@ -54,11 +53,11 @@ cc_library(
         "pfmla.h",
         "pfmla.hh",
     ],
-    deps = [
-        ":pfmla_glu_lib",
-    ],
     visibility = [
         "//src/uni:__pkg__",
+    ],
+    deps = [
+        ":pfmla_glu_lib",
     ],
 )
 
@@ -73,25 +72,23 @@ cc_test(
     ],
 )
 
-
 cc_library(
     name = "xnsys_lib",
     srcs = [
         "namespace.hh",
         "xfmlae.cc",
         "xfmlae.hh",
-        "xnsys.cc",
-        "xnsys.hh",
         "xnpc.cc",
         "xnpc.hh",
         "xnspec.cc",
         "xnspec.hh",
+        "xnsys.cc",
+        "xnsys.hh",
     ],
     deps = [
         ":pfmla_lib",
     ],
 )
-
 
 cc_library(
     name = "prot_file_lib",
@@ -105,13 +102,13 @@ cc_library(
         "prot-xfile.hh",
         "prot-xfile.leg.cc",
     ],
+    visibility = [
+        "//src/uni:__pkg__",
+    ],
     deps = [
         ":xnsys_lib",
         "//src/inline:inline_cc_lib",
         "@fildesh//:fildesh_cc_lib",
-    ],
-    visibility = [
-        "//src/uni:__pkg__",
     ],
 )
 
@@ -151,14 +148,14 @@ cc_library(
         "udp-ofile.hh",
         "//src/udp-impl:act.embed.h",
     ],
-    deps = [
-        ":prot_file_lib",
-    ],
     # This lets udp-ofile.cc include the generated "udp-impl/act.embed.h" file.
     # Ideally we'd use copts to avoid adding this include path to everything
     # that depends on protocon_lib.
     includes = [
         ".",
+    ],
+    deps = [
+        ":prot_file_lib",
     ],
 )
 
@@ -171,25 +168,26 @@ cc_binary(
         "search.cc",
         "search.hh",
     ],
+    visibility = ["//visibility:public"],
     deps = [
         ":protocon_lib",
     ],
-    visibility = ["//visibility:public"],
 )
 
 fildesh_run(
     name = "test_embed_h",
+    testonly = 1,
     input_by_xof = {"x_txt": "testlist.txt"},
     output_by_xof = {"o_h": "test.embed.h"},
     src_content = """
 cswitch testname -case-pfx \"fn = Test\" -array AllTests -x $(XOF x_txt) -o $(XOF o_h)
     """,
     tool_by_alias = {"cswitch": "@fildesh//tool:cswitch"},
-    testonly = 1,
 )
 
 cc_library(
     name = "kautz_lib",
+    testonly = 1,
     srcs = [
         "kautz.cc",
         "kautz.hh",
@@ -198,7 +196,6 @@ cc_library(
         "//src/cx:cx_lib",
         "@fildesh//:fildesh_cc_lib",
     ],
-    testonly = 1,
 )
 
 cc_test(
@@ -209,12 +206,12 @@ cc_test(
         "test.cc",
         "test.embed.h",
     ],
-    deps = [
-        ":protocon_lib",
-    ],
     data = [
         "//examplesoln:ColorUniRing.prot",
         "//examplespec:LeaderRingHuang.prot",
         "//examplespec:SumNotTwo.prot",
+    ],
+    deps = [
+        ":protocon_lib",
     ],
 )

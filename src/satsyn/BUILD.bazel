@@ -7,11 +7,11 @@ cc_library(
         "xnsys.h",
     ],
     copts = ["-Isrc"],
-    deps = [
-        "//src/cx:cx_lib",
-    ],
     visibility = [
         "//test/satsyn:__pkg__",
+    ],
+    deps = [
+        "//src/cx:cx_lib",
     ],
 )
 
@@ -24,11 +24,11 @@ cc_library(
         "synsearch.h",
     ],
     copts = ["-Isrc"],
-    deps = [
-        ":detect_lib",
-    ],
     visibility = [
         "//test/satsyn:__pkg__",
+    ],
+    deps = [
+        ":detect_lib",
     ],
 )
 
@@ -39,11 +39,11 @@ cc_library(
         "instance.h",
     ],
     copts = ["-Isrc"],
-    deps = [
-        ":detect_lib",
-    ],
     visibility = [
         "//test/satsyn:__pkg__",
+    ],
+    deps = [
+        ":detect_lib",
     ],
 )
 
@@ -54,11 +54,11 @@ cc_library(
         "encodesat.h",
     ],
     copts = ["-Isrc"],
-    deps = [
-        ":synsearch_lib",
-    ],
     visibility = [
         "//test/satsyn:__pkg__",
+    ],
+    deps = [
+        ":synsearch_lib",
     ],
 )
 
@@ -67,15 +67,14 @@ cc_binary(
     srcs = [
         "dimacs.h",
         "inst-sat3.h",
-        "satsyn.c",
         "pla.c",
         "pla.h",
-    ],
-    deps = [
-        ":instance_lib",
-        ":encodesat_lib",
-        "//src/inline:inline_cc_lib",
+        "satsyn.c",
     ],
     copts = ["-Isrc"],
+    deps = [
+        ":encodesat_lib",
+        ":instance_lib",
+        "//src/inline:inline_cc_lib",
+    ],
 )
-

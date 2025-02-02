@@ -1,3 +1,4 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 package(
     default_visibility = [
@@ -23,8 +24,8 @@ cc_binary(
 cc_binary(
     name = "classify",
     srcs = [
-        "classify.cc",
         "adjlist.hh",
+        "classify.cc",
         "livelock.cc",
         "livelock.hh",
         "uniact.hh",
@@ -43,10 +44,10 @@ cc_binary(
 cc_binary(
     name = "generate",
     srcs = [
-        "generate.cc",
         "adjlist.hh",
         "canonical.cc",
         "canonical.hh",
+        "generate.cc",
         "livelock.cc",
         "livelock.hh",
         "uniact.hh",
@@ -65,8 +66,8 @@ cc_binary(
 cc_binary(
     name = "synthesize",
     srcs = [
-        "synthesize.cc",
         "adjlist.hh",
+        "synthesize.cc",
         "uniact.hh",
         "unifile.cc",
         "unifile.hh",
@@ -82,13 +83,13 @@ cc_binary(
 cc_binary(
     name = "xlate",
     srcs = [
-        "xlate.cc",
         "adjlist.hh",
         "livelock.cc",
         "livelock.hh",
         "uniact.hh",
         "unifile.cc",
         "unifile.hh",
+        "xlate.cc",
         "//src:namespace.hh",
     ],
     deps = [

@@ -1,10 +1,11 @@
 load("@fildesh//tool/bazel:fildesh_run.bzl", "fildesh_run")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 fildesh_run(
     name = "act_embed_h",
     input_by_xof = {
-      "x_c": "protocol.c",
-      "x_h": "protocol.h",
+        "x_c": "protocol.c",
+        "x_h": "protocol.h",
     },
     output_by_xof = {"o_h": "act.embed.h"},
     src_content = """
@@ -19,9 +20,9 @@ cembed -o $(XOF o_h) $(XOF x_h) $(XOF x_c)
 cc_binary(
     name = "udp_ThreeColorRing",
     srcs = [
+        "act.h",
         "protocol.c",
         "protocol.h",
-        "act.h",
     ],
     linkopts = select({
         "@platforms//os:linux": ["-lrt"],

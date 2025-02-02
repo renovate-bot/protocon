@@ -1,0 +1,22 @@
+#!/usr/bin/env fildesh
+
+(: buildtools_dir Str .self.opt.buildtools_dir)
+
+(: exclude_filepaths Str """\
+""")
+
+splice -o $(OF exclude) / "${exclude_filepaths}" /
+
+pwd $(O pwd)
+
+|< find \
+  "./pkg" "./src" "./test" "./tool" \
+  -name "BUILD.bazel"
+|- grep -v -F -f $(XF exclude)
+|- splice / "./BUILD.bazel\n./MODULE.bazel\n" / -
+|- replace_string "./"
+|- splice -paste / $(XA pwd) "/" / -
+|- xargs -d "\n" \
+  fildesh -as godo "${buildtools_dir}" \
+  bazel run //buildifier --
+|> stdout

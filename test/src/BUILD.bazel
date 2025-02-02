@@ -1,4 +1,5 @@
 load("@fildesh//tool/bazel:fildesh_test.bzl", "fildesh_test")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_test")
 
 fildesh_test(
     name = "biring_test",
@@ -14,10 +15,11 @@ cc_test(
 
 cc_binary(
     name = "kautz_graphviz",
+    testonly = 1,
     srcs = ["kautz_graphviz.cc"],
     deps = ["//src:kautz_lib"],
-    testonly = 1,
 )
+
 fildesh_test(
     name = "kautz_test",
     srcs = ["kautz_test.fildesh"],
@@ -46,4 +48,3 @@ cc_test(
     deps = ["//src:xnsys_lib"],
     #copts = ["-Iexternal/fildesh/src"],
 )
-

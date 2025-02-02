@@ -55,6 +55,6 @@ fildesh_test(
 fildesh_test(
     name = "synthesize_test",
     srcs = ["synthesize_test.fildesh"],
-    tool_by_alias = {"synthesize": "//src/uni:synthesize"},
     input_by_option = {"input_file": "//examplespec:SumNotTwo.prot"},
+    tool_by_alias = {"synthesize": "//src/uni:synthesize"},
 )

@@ -1,65 +1,67 @@
 load("@fildesh//tool/bazel:fildesh_test.bzl", "fildesh_test")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 fildesh_test(
     name = "Verif4_Sync_OrientRing_test",
     srcs = ["Verif4_Sync_OrientRing_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {"input_file": "//examplesoln:OrientRing.prot"},
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
 
 fildesh_test(
     name = "Verif4_OrientRingOdd_failure_test",
     srcs = ["Verif4_OrientRingOdd_failure_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {"input_file": "//examplesoln:OrientRingOdd.prot"},
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
 
 ## PLA file output.
 fildesh_test(
     name = "PLA_MatchRingThreeState_test",
     srcs = ["PLA_MatchRingThreeState_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {
         "expect_file": ":MatchRingThreeState.pla",
         "input_file": "//examplesoln:MatchRingThreeState.prot",
     },
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
 
 ## Protocon file output minimized by Espresso (which speaks in PLA format).
 cc_binary(
     name = "Espresso_MatchRingThreeState",
+    testonly = 1,
     srcs = ["Espresso_MatchRingThreeState.cc"],
     deps = ["@fildesh//:fildesh_cc_lib"],
-    testonly = 1,
 )
+
 fildesh_test(
     name = "Espresso_MatchRingThreeState_test",
     srcs = ["Espresso_MatchRingThreeState_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {
         "espresso": ":Espresso_MatchRingThreeState",
         "input_file": "//examplesoln:MatchRingThreeState.prot",
     },
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
 
 ## Promela file output.
 fildesh_test(
     name = "Promela_OrientDaisy_test",
     srcs = ["Promela_OrientDaisy_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {
         "expect_file": ":OrientDaisy.pml",
         "input_file": "//examplesoln:OrientDaisy.prot",
     },
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
 
 ## UDP file output.
 fildesh_test(
     name = "UDP_TokenRingRand_test",
     srcs = ["UDP_TokenRingRand_test.fildesh"],
-    tool_by_alias = {"protocon": "//src:protocon"},
     input_by_option = {
         "expect_file": ":TokenRingRand.h",
         "input_file": "//examplesoln:TokenRingRand.prot",
     },
+    tool_by_alias = {"protocon": "//src:protocon"},
 )
