@@ -33,12 +33,17 @@ include("dep/cmake_fetchcontent/mddglu.cmake")
 include(ExternalProject)
 include("dep/cmake_externalproject/peg.cmake")
 
+find_library (M_LIB m)
+find_package(MPI)
+find_package(OpenMP)
+
 #### Build ####
 include_directories(
   "${PROJECT_SOURCE_DIR}"
   ${Fildesh_INCLUDE_DIRS}
 )
 add_subdirectory(src)
+set(Protocon_EXECUTABLE "$<TARGET_FILE:protocon>")
 
 #### Test ####
 # (The src/ subdirectory has some tests too.)

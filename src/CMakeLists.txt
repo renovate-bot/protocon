@@ -1,8 +1,4 @@
 
-find_library (M_LIB m)
-find_package(MPI)
-find_package(OpenMP)
-
 add_definitions(-DPROTOCON_NAMESPACE=protocon)
 
 add_subdirectory(inline)
