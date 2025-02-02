@@ -54,9 +54,6 @@ public:
     this->insert(this->end(), capac, e);
   }
 
-  void ensize(size_t capac) {
-    this->resize(capac);
-  }
   void wipe(const T& x) {this->assign(this->size(), x);}
 
   T* operator+() {return this->data();}

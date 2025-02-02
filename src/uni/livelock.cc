@@ -66,7 +66,7 @@ fill_livelock_ck(const PcState top[],
   Claim( top[0] == col[0] );
   Claim( top[0] == col[m] );
   Claim( top[0] == top[n] );
-  row.ensize(n+1);
+  row.resize(n+1);
   for (uint j = 0; j < n+1; ++j) {
     row[j] = top[j];
   }
@@ -121,7 +121,7 @@ livelock_semick_rec(const Table<PcState>& old_bot,
         if (fill_livelock_ck(&bot[j], bot.sz()-1-j,
                              &col[i], col.sz()-1-i,
                              ppgfun, domsz, ret_row)) {
-          ret_col.ensize(n+1-i);
+          ret_col.resize(n+1-i);
           for (uint j = 0; j < ret_col.sz(); ++j) {
             ret_col[j] = col[i+j];
           }

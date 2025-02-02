@@ -93,11 +93,10 @@ MpiDissem::xtestlite(Tag& tag, Cx::Table<uint>& msg)
       payload.cpop();
       const uint n = payload.top();
 
-      msg.flush();
-      msg.ensize(n);
-      for (uint j = 0; j < n; ++j) {
+      msg.resize(n);
+      for (auto& e : msg) {
         payload.cpop();
-        msg[j] = payload.top();
+        e = payload.top();
       }
       // Use the last pop to resize in memory.
       payload.mpop();
