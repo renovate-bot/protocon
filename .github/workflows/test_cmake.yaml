@@ -63,7 +63,7 @@ jobs:
     - name: CMake Version Set
       uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: '3.14'
+        cmake-version: '3.31'
 
     - name: CMake Version Get
       run: cmake --version
